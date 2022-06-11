@@ -1,0 +1,50 @@
+.add_plate{
+    max-width: 800px;
+    margin-block: 1em;
+    margin-inline: auto;
+    padding-inline: 1em;
+}
+
+.add_plate .order{
+    display: grid;
+}
+
+.add_plate .order-title{
+    text-align: center;
+    font-family: var(--ff-main);
+}
+
+.add_plate .step{
+    transform: scaleX(0);
+    opacity: 0;
+    height: 0;
+    transition: transform 750ms ease-out 500ms;
+}
+
+.add_plate .fade{
+    transform: scaleX(0);
+    opacity: 0;
+    height: 0;
+    z-index: 100;
+    transform-origin: left;
+    transition: transform 750ms ease-out 500ms, opacity 250ms 1000ms, height 0ms 1250ms;
+}
+
+.add_plate .active{
+    transform: scaleX(1);
+    opacity: 1;
+    height: max-content;
+    transform-origin: right;
+}
+
+.add_plate .reload-menu{
+    text-transform: uppercase;
+    padding: 1em 2em;
+    border-radius: 2em;
+    cursor: pointer;
+    font-family: var(--ff-main);
+    margin-block-start: 3em;
+    font-size: var(--fs-general);
+    color: var(--clr-primary-800);
+    border: 1.5px solid var(--bg-primary-800);
+}

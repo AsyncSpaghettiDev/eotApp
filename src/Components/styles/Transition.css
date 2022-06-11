@@ -1,0 +1,105 @@
+.transition{
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--bg-primary-200);
+    transform: scale(1);
+    animation: hide 500ms ease-in var(--transition-duration) forwards;
+}
+
+@keyframes hide {
+    to{
+        transform: scale(1.5);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.transition .transition-logo{
+    width: clamp(100px,25%, 250px);
+    aspect-ratio: 1;
+    border-radius: 0.25em;
+    margin-block-end: 0.5em;
+}
+
+.transition .transition-text{
+    font-weight: var(--fw-bold);
+    font-family: var(--ff-main);
+    font-size: var(--fs-special);
+    color: var(--clr-primary-800);
+}
+
+.transition .transition__progress{
+    font-size: 22px;
+    width: clamp(100px, 85%, 300px);
+    height: 1em;
+    border-radius: 0.5em;
+    border: 2px solid var(--bg-primary-800);
+    position: relative;
+    overflow: hidden;
+}
+
+.transition .transition__progress::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--bg-primary-800);
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    animation: loading var(--transition-duration) ease-in-out 250ms  forwards ;
+}
+
+@keyframes loading {
+    0%{
+        width: 0;
+    }
+    25%{
+        width: 20%;
+    }
+    50%{
+        width: 65%;
+    }
+    75%{
+        width: 90%;
+    }
+    100%{
+        width: 105%;
+    }
+}
+.transition .transition__footer{
+    height: 100px;
+}
+
+.transition .transition__footer-balls-1,
+.transition .transition__footer-balls-2{
+    position: absolute;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    animation: show var(--transition-duration) ease-out 50ms forwards;
+}
+@keyframes show {
+    to{
+        opacity: 0.75;
+    }
+}
+.transition .transition__footer-balls-1{    
+    bottom: -50px;
+    left: -80px;
+    width: 300px;
+    background-color: #E0D4B7;
+}
+.transition .transition__footer-balls-2{
+    width: 350px;
+    top: -90px;
+    right: -95px;
+    background-color: #AA7F73;
+    animation-delay: 1s;
+}

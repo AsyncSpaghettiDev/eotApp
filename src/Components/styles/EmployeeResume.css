@@ -1,0 +1,9 @@
+.employee__resume__table{
+    cursor: crosshair;
+    font-family: var(--ff-alter);
+}
+
+.employee__resume__table .employee__resume__table-rol{
+    text-transform: lowercase;
+    padding-block: 0.5em;
+}

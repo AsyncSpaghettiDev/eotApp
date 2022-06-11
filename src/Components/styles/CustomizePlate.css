@@ -1,0 +1,69 @@
+.customize__plate {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    gap: 0.25em;
+    margin-block-start: 1em;
+}
+
+.customize__plate .plate-image {
+    max-width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-block-end: 0.75em;
+    width: clamp(200px, 85%, 350px);
+    box-shadow: 0 0.25em 0.75em 0.15em var(--bg-primary-800);
+}
+
+.customize__plate .plate-name {
+    font-family: var(--ff-main);
+    font-size: var(--fs-title);
+}
+
+.customize__plate .plate-price {
+    font-weight: var(--fw-bold);
+}
+
+.customize__plate .plate-desc,
+.customize__plate .plate__counter,
+.customize__plate .plate-price {
+    font-family: var(--ff-alter);
+    font-size: var(--fs-general);
+}
+
+.customize__plate .plate__counter {
+    display: flex;
+    column-gap: 0.25em;
+    align-items: center;
+}
+
+.customize__plate .plate__counter-btn {
+    width: 2em;
+    aspect-ratio: 1;
+    cursor: pointer;
+    border-radius: 50%;
+    color: var(--bg-primary-800);
+    font-size: var(--fs-general);
+    border: 1px solid var(--bg-primary-800);
+}
+
+.customize__plate .plate__counter-btn:disabled {
+    color: var(--clr-grey);
+    border-color: var(--clr-grey);
+}
+
+.customize__plate .plate-confirm {
+    text-transform: uppercase;
+    padding: 1em 2em;
+    border-radius: 2em;
+    cursor: pointer;
+    font-family: var(--ff-main);
+    border: none;
+    margin-block-start: 1em;
+    color: var(--clr-white);
+    font-size: var(--fs-special);
+    background-color: var(--bg-primary-800);
+}

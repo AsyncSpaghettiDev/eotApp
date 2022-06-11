@@ -1,0 +1,78 @@
+.table__dashboard{
+    max-width: 800px;
+    margin: auto;
+}
+
+/*  
+    --------------------------
+    Image and name of the page
+    --------------------------
+*/
+
+.dashboard__hero {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-inline: auto;
+    margin-block: 1em;
+    flex-wrap: wrap;
+}
+
+.dashboard__hero-img {
+    width: 125px;
+    aspect-ratio: 1;
+    border-radius: 0.25em;
+}
+.dashboard__hero-title {
+    font-weight: var(--fw-bold);
+    font-family: var(--ff-main);
+    color: var(--clr-black);
+    text-transform: uppercase;
+    text-align: center;
+    flex-basis: 100%;
+    margin: 0;
+}
+
+/*
+    -----------
+    Resume Grid
+    -----------
+*/
+.dashboard__resume{
+    width: 95%;
+    margin-inline: auto;
+    border-spacing: 0 0.5em;
+}
+.dashboard__resume__headers{
+    margin-top: 0.25em;
+    font-family: var(--ff-alter);
+    font-size: var(--fs-general);
+    color: var(--clr-black);
+    text-align: center;
+    text-transform: capitalize;
+}
+
+/*
+    ----------------
+    New table styles
+    ----------------
+*/
+
+.dashboard__new{
+    display: flex;
+    justify-content: center;
+    margin-block-start: 1em;
+    text-align: center;
+    gap: 0.5em;
+}
+
+.dashboard__new .dashboard__new-add{
+    color: var(--bg-primary-800);
+    padding-inline: 2em;
+    padding-block: 0.5em;
+    border-radius: 2em;
+    border: 1px solid var(--bg-primary-800);
+    cursor: pointer;
+    font-size: var(--fs-special);
+    font-family: var(--ff-main);
+}

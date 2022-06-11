@@ -1,0 +1,37 @@
+.dashboard__resume__table{
+    --current-color: var(--clr-black);
+    font-family: var(--ff-alter);
+    text-align: center;
+    font-size: var(--fs-general);
+    text-transform: capitalize;
+    position: relative;
+    color: var(--current-color);
+}
+
+.dashboard__resume__table::after{
+    --current-bg: var(--bg-primary-600);
+    position: absolute;
+    content: '';
+    inset: 0;
+    z-index: -1;
+    border-radius: 1em;
+    border: 1.5px solid var(--current-bg);
+}
+
+.dashboard__resume__table--busy{
+    cursor: pointer;
+    --current-color: var(--clr-white);
+}
+
+.dashboard__resume__table--busy::after{
+    background-color: var(--current-bg);
+}
+
+.dashboard__resume__table .dashboard__resume__table-info{
+    padding: 0.25em;
+    box-sizing: border-box;
+}
+
+.dashboard__resume__table .dashboard__resume__table-time{
+    text-transform: lowercase;
+}

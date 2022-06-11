@@ -1,0 +1,30 @@
+.order-finished{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+    row-gap: 0.5em;
+}
+
+.order-finished .order-title{
+    font-family: var(--ff-main);
+    font-size: var(--fs-general);
+}
+
+.order-finished .order-number,
+.order-finished .order-plate-name,
+.order-finished .order-plate-price,
+.order-finished .order-plate-quantity,
+.order-finished .order-time{
+    font-family: var(--ff-alter);
+    font-size: var(--fs-general);
+}
+
+.order-finished .order-number{
+    font-weight: var(--fw-bold);
+}
+
+.order-finished .order-img{
+    width: 150px;
+    aspect-ratio: 1;
+}

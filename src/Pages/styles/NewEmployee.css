@@ -1,0 +1,31 @@
+.dialog__container .dialog__form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--ff-alter);
+    row-gap: 0.25em;
+}
+
+.dialog__container .dialog__form-input{
+    border: none;
+    padding: 0.25em;
+    text-align: center;
+    border-radius: 0.25em;
+}
+
+.dialog__container .dialog__form-input.dialog__form-empID{
+    width: 15ch;
+}
+
+.dialog__form__exception{
+    color: rgb(164, 14, 14);
+    background-color: var(--bg-primary-200);
+    padding: 0.25em;
+    border-radius: 0.25em;
+}
+
+.dialog__container .dialog__form__row{
+    display: flex;
+    column-gap: 0.25em;
+    align-items: center;
+}

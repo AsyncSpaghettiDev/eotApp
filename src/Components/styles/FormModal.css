@@ -1,0 +1,85 @@
+.form__modal_container{
+    position: fixed;
+    display: grid;
+    place-items: center;
+    inset: 0;
+    background-color: #fff0;
+    animation: showModalContainer 250ms ease-out forwards;
+}
+
+.form__modal_container .dialog{
+    width: min(85%, 60ch);
+    padding: 1.25em 0.5em;
+    border-radius: 0.5em;
+    background-color: #fff0;
+    color: var(--clr-primary-200);
+    text-align: center;
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: showModal 300ms ease-in-out 150ms forwards;
+}
+
+.form__modal_container .dialog-title{
+    font-family: var(--ff-main);
+    margin-block-end: 0.5em;
+}
+
+.form__modal_container .dialog-desc{
+    font-family: var(--ff-alter);
+    font-size: var(--fs-general);
+}
+
+.form__modal_container .dialog-buttons{
+    display: flex;
+    justify-content: center;
+    margin-block-start: 0.5em;
+    column-gap: 0.5em;
+}
+
+.form__modal_container .dialog-btn{
+    width: max-content;
+    padding-block: 0.65em;
+    padding-inline: 1ch;
+    border: none;
+    background-color: var(--bg-primary-200);
+    color: var(--clr-primary-800);
+    font-family: var(--ff-alter);
+    font-weight: var(--fw-bold);
+    font-size: 15px;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.form__modal_container .dialog__form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--ff-alter);
+    row-gap: 0.25em;
+}
+
+.form__modal_container .dialog__form-input{
+    border: none;
+    text-align: center;
+    border-radius: 0.25em;
+    padding-block: 0.45em;
+}
+
+.form__modal_container .dialog__form--invalid .dialog__form-input:not([type="radio"]){
+    box-shadow: 0 0 0.125em 0.25em #f009;
+    animation: shakeOnInvalid 300ms ease-in forwards;
+    transition: box-shadow 0ms;
+}
+
+.form__modal_container .dialog__form__exception{
+    color: #f00;
+    background-color: var(--bg-primary-200);
+    padding: 0.25em;
+    border-radius: 0.25em;
+}
+
+.form__modal_container .dialog__form__row{
+    display: flex;
+    column-gap: 0.25em;
+    align-items: center;
+}

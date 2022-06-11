@@ -1,0 +1,113 @@
+.table__detail{
+    padding-inline: 1em;
+    padding-block: 1em;
+    max-width: 800px;
+    margin: auto;
+}
+
+.table__hero{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: 
+    '. logo title'
+    '. . btn';
+    align-items: flex-end;
+}
+
+.table__hero-img{
+    grid-area: logo;
+    width: 125px;
+    aspect-ratio: 1;
+    justify-self: center;
+}
+
+.table__hero-title{
+    font-family: var(--ff-main);
+    grid-area: title;
+    margin: 0;
+    margin-block-end: 0.5em;
+    text-transform: uppercase;
+}
+
+.table__hero-btn{
+    grid-area: btn;
+    display: flex;
+    align-items: center;
+    column-gap: 0.5em;
+    border: none;
+    padding: 0.35em 0.5em;
+    border-radius: 2em;
+    max-width: 15ch;
+    color: var(--clr-primary-200);
+    background-color: var(--bg-primary-800);
+    cursor: pointer;
+}
+
+.table__info{
+    text-transform: capitalize;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    font-size: var(--fs-special);
+    font-family: var(--ff-alter);
+}
+
+.table__info-status{
+    display: flex;
+    align-items: center;
+    column-gap: 0.25em;
+}
+
+.table__info--active,
+.table__info--awaiting,
+.table__info--inactive{
+    width: 1em;
+    display: inline-block;
+    border-radius: 50%;
+    aspect-ratio: 1;
+}
+
+.table__info--active{
+    background-color: red;
+}
+
+.table__info--inactive{
+    background-color: green;
+}
+
+.table__info--awaiting{
+    background-color: orange;
+}
+
+.table__plates{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: auto;
+    row-gap: 0.5em;
+}
+
+.table__form{
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+.table__form-total,
+.table__form-submit{
+    padding: 1em 2em;
+    text-transform: uppercase;
+    font-family: var(--ff-main);
+}
+
+.table__form-total{
+    color: var(--clr-black);
+    font-size: var(--fs-title);
+}
+.table__form-submit{
+    cursor: pointer;
+    border-radius: 2em;
+    font-size: var(--fs-general);
+    color: var(--clr-primary-800);
+    border: 1.5px solid var(--bg-primary-800);
+}

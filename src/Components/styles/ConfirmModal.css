@@ -1,0 +1,63 @@
+.dialog__container{
+    position: fixed;
+    display: grid;
+    place-items: center;
+    inset: 0;
+    background-color: #fff0;
+    animation: showModalContainer 250ms ease-out forwards;
+}
+
+@keyframes showModalContainer {
+    to{
+        background-color: #0008;
+    }
+}
+
+.dialog__container .dialog{
+    width: min(85%, 60ch);
+    padding: 1.25em 0.5em;
+    border-radius: 0.5em;
+    background-color: #fff0;
+    color: var(--clr-primary-200);
+    text-align: center;
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: showModal 300ms ease-in-out 150ms forwards;
+}
+
+@keyframes showModal {
+    to{
+        transform: scaleY(1);
+        background-color: var(--bg-primary-800);
+    }
+}
+
+.dialog__container .dialog-title{
+    font-family: var(--ff-main);
+    margin-block-end: 0.5em;
+}
+
+.dialog__container .dialog-desc{
+    font-family: var(--ff-alter);
+    font-size: var(--fs-general);
+}
+
+.dialog__container .dialog-buttons{
+    display: flex;
+    justify-content: center;
+    margin-block-start: 0.5em;
+    column-gap: 0.5em;
+}
+
+.dialog__container .dialog-btn{
+    width: 9ch;
+    padding: 0.65em 0;
+    border: none;
+    background-color: var(--bg-primary-200);
+    color: var(--clr-primary-800);
+    font-family: var(--ff-alter);
+    font-weight: var(--fw-bold);
+    font-size: 15px;
+    border-radius: 0.5em;
+    cursor: pointer;
+}

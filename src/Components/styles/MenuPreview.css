@@ -1,0 +1,21 @@
+.menu__preview{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 1em;
+}
+
+.menu__preview .menu__title{
+    font-family: var(--ff-main);
+    flex: 1 1 100%;
+    text-align: center;
+}
+
+
+.menu__preview .plates-title{
+    text-align: center;
+    font-family: var(--ff-main);
+    font-size: var(--fs-title);
+    font-weight: var(--fw-bold);
+    flex-basis: 100%;
+}

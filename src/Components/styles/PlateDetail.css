@@ -1,0 +1,60 @@
+.plate__detail{
+    max-width: 400px;
+    display: grid;
+    grid-template-columns: clamp(55px, 100%, 75px) 1fr 12ch;
+    grid-template-rows: 1fr repeat(2, 1.25em);
+    grid-template-areas: 
+    'img name .'
+    'img price btn'
+    'img quantity btn';
+    gap: 0.25em 0.5em;
+    align-items: center;
+}
+
+.plate__detail .plate-image{
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    grid-area: img;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 2em;
+    justify-self: center;
+}
+
+.plate__detail .plate-name{
+    font-family: var(--ff-main);
+    grid-area: name;
+    align-self: flex-end;
+}
+
+.plate__detail .plate-price,
+.plate__detail .plate-quantity,
+.plate__detail .plate-update{
+    font-family: var(--ff-alter);
+}
+
+.plate__detail .plate-price{
+    margin: 0;
+    grid-area: price;
+    text-transform: uppercase;
+}
+
+.plate__detail .plate-quantity{
+    grid-area: quantity;
+    margin: 0;
+}
+
+.plate__detail .plate-update{
+    grid-area: btn;
+    width: 85%;
+    height: 85%;
+    align-self: center;
+    justify-self: center;
+    border: none;
+    border-radius: 2em;
+    color: var(--clr-primary-200);
+    background-color: var(--bg-primary-800);
+    cursor: pointer;
+    font-family: var(--ff-main);
+}
