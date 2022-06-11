@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
+    "concurrently": "^7.2.1",
     "nanoid": "^3.3.4",
     "react": "^18.1.0",
     "react-cookie": "^4.1.1",
@@ -19,7 +20,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "server": "nodemon server/app.js",
+    "build": "react-scripts build && node copy.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -40,5 +42,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "concurrently": "^7.1.0",
+    "nodemon": "^2.0.16"
+  },
+  "proxy": "http://localhost:5000"
 }
