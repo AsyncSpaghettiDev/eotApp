@@ -1,25 +1,44 @@
-const api = require('./routes/api');
-const express = require('express');
-const path = require('path');
+import express, { urlencoded, json } from 'express';
+import path, { join }  from 'path';
+import { fileURLToPath } from 'url';
+import session from 'express-session';
+import database from './database.cjs';
 const app = express();
+
+// Routes
+import api from './routes/api.js';
 
 // Settings
 app.set('port', process.env.PORT || 5000);
 
 // Static Files (Frontend location)
-app.use(express.static(path.join(__dirname, 'build')));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(join(__dirname, 'build')));
 
 // Middlewares
-app.use(express.urlencoded({ extended: false }));
+app.use(urlencoded({ extended: false }));
 // Parse JSON bodies (as sent by API clients)
-app.use(express.json());
+app.use(json());
+app.use(session({
+    // eatontime (SHA256)
+    secret: '2643db4fac36d614d06b066a1f62411c278ed09cb6804150384fc3fb0cbcc6fd',
+    store: database.sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+        maxAge: 60 * 60 * 12
+    }
+}));
 
-// Routers
+// Check if user has a session, if not returns no home (pending)
+
+// Api redirection
 app.use('/api', api);
 
 // Redirection to frontend if url isnt /api
 app.get('*', (_, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(join(__dirname, 'build', 'index.html'));
 });
 
 // Starting the server

@@ -4,26 +4,28 @@ import './styles/Login.css';
 // Resources
 import EOTLogo from '../Images/logo.png';
 
-// Data
-import Users from '../Data/users.json';
-
 // Components
 import NavBar from "../Components/NavBar";
 import Transition from '../Components/Transition';
 
 // Imports
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
-import { useEffect, useState } from 'react';
+import AuthContext from '../Utils/AuthContext.js';
 
 const Login = () => {
     // Hooks
     let navigate = useNavigate();
-    const [_, setCookie] = useCookies(['role', 'user']);
     const [validForm, setValidForm] = useState(true);
     const [from, setFrom] = useState();
+    const [userAuth, setUserAuth] = useState({
+        auth: false,
+        name: null,
+        role: null
+    });
     const [searchParams, __] = useSearchParams();
     let location = useLocation();
+    const { authContextApi, setAuthContextApi } = useContext(AuthContext);
 
     // UseEffect
     useEffect(() => {
@@ -40,33 +42,48 @@ const Login = () => {
             setTimeout(() => setValidForm(true), 2000);
     }, [validForm]);
 
+    useEffect(() => {
+        setValidForm(userAuth.auth);
+
+        if (userAuth.auth) {
+            setAuthContextApi({
+                auth: userAuth.auth,
+                username: userAuth.name,
+                role: userAuth.role
+            })
+            navigate(from, { replace: true });
+        }
+
+    }, [userAuth]);
+
     // Handlers
     const submitHandler = e => {
         e.preventDefault();
-        const [valid, name, role] = fakeValidation(e.target[0].value, e.target[1].value);
-
-        if (valid) {
-            setValidForm(true);
-            setCookie('name', name, {
-                path: '/',
-                maxAge: role === 'TABLE' ? 10800 : 86400
-            });
-            setCookie('role', role, {
-                path: '/',
-                maxAge: role === 'TABLE' ? 10800 : 86400
-            });
-            navigate(from, { replace: true });
-        }
+        serverValidation(e.target[0].value, e.target[1].value);
     }
     // Functions
-    const fakeValidation = (user, password) => {
-        const userFinded = Users.find(reg => reg.R_USER_NAME == user && reg.USER_PASSWORD == password);
-        if (userFinded) {
-            const { R_USER_NAME, USER_ROLE } = userFinded;
-            return [true, R_USER_NAME, USER_ROLE];
-        }
-        setValidForm(false);
-        return [false, null, null];
+    const serverValidation = async (user, password) => {
+        fetch('/api/login',
+            {
+                method: 'POST',
+                body: JSON.stringify({ user: user, password: password }),
+                headers: { "Content-Type": "application/json" }
+            }
+        )
+            .then(res => {
+                if (res.ok)
+                    return res.json();
+                else
+                    setUserAuth({ ...userAuth, auth: false })
+            })
+            .then(data => {
+                if (data !== undefined)
+                    setUserAuth({
+                        auth: true,
+                        name: user,
+                        role: data.role
+                    })
+            });
     }
 
     // Render section

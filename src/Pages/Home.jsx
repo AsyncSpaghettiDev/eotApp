@@ -13,17 +13,21 @@ import './styles/Home.css';
 import Transition from '../Components/Transition.jsx';
 
 // Imports
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import AuthContext from '../Utils/AuthContext';
 
 const Home = () => {
     // Hooks
-    const [cookies, _, removeCookie] = useCookies(['role', 'name']);
+    const {authContextApi, setAuthContextApi} = useContext(AuthContext);
 
     // Handlers
     const onClickHandler = () => {
-        removeCookie('role');
-        removeCookie('name');
+        fetch('/api/logout').then(res => res.json()).then(__ => setAuthContextApi({
+            auth: false,
+            username: null,
+            role: null
+        }));
     }
 
     // Render section
@@ -53,7 +57,7 @@ const Home = () => {
                 /**
                  * If current session has admin role can access to link to employees
                  */
-                cookies.role === 'ADMIN' &&
+                authContextApi.role === 'ADMIN' &&
                 <Link className='home__link' to='/employees'>
                     <img src={EmployeesImage} alt="" className="home__link-image" />
                     <p className="home__link-text">Empleados</p>
@@ -63,7 +67,7 @@ const Home = () => {
                 /**
                  * If current session has admin or chef role can access to link to employees
                  */
-                (cookies.role === 'ADMIN' || cookies.role === 'CHEF') &&
+                (authContextApi.role === 'ADMIN' || authContextApi.role === 'CHEF') &&
                 <Link className='home__link' to='/orders'>
                     <img src={OrdersImage} alt="" className="home__link-image" />
                     <p className="home__link-text">Ordenes</p>
@@ -78,7 +82,7 @@ const Home = () => {
                 /**
                  * If current user isnt authenticated login redirect will appear
                  */
-                !cookies.role &&
+                !authContextApi.auth &&
                 <Link className='home__link-flotant' to='/login' replace={false} >
                     <img className='home__link-image' src={Login} alt="eat on time login" />
                     <p className="home__link-text">Login</p>
@@ -88,10 +92,10 @@ const Home = () => {
                 /**
                  * If current user is authenticated welcome message will appear
                  */
-                cookies.role &&
+                authContextApi.auth &&
                 <p className='user-welcome-message'
                     onClick={onClickHandler}>
-                    {`Welcome ${cookies.name} (${cookies.role}) `}
+                    {`Welcome ${authContextApi.username} (${authContextApi.role}) `}
                 </p>
             }
         </main>

@@ -1,6 +1,6 @@
 // Imports
-import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { useContext, useEffect, useState } from 'react';
+import AuthContext from '../Utils/AuthContext';
 
 // Styles
 import './styles/TableDashboard.css';
@@ -22,7 +22,7 @@ const TableDashboard = () => {
     const [editMode, setEditMode] = useState(false); 
     const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
     const [modalConfiguration, setModalConfiguration] = useState(undefined);
-    const [cookies] = useCookies(['role']);
+    const {authContextApi} = useContext(AuthContext);
 
     // Inputs for modal configs
     const inputConfigAdd = [
@@ -174,7 +174,7 @@ const TableDashboard = () => {
                 <h2 className="dashboard__hero-title">Mesas {editMode && "(Edit Mode)"} </h2>
             </div>
             {
-                cookies.role === 'ADMIN' &&
+                authContextApi.role === 'ADMIN' &&
                 <div className="dashboard__new">
                     <button className="dashboard__new-add" onClick={onNewHandler}>Agregar Mesa</button>
                     <button className="dashboard__new-add" onClick={onToggleEditMode}>Alternar modo editar</button>

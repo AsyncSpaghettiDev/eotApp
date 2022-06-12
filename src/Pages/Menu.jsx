@@ -1,7 +1,7 @@
 // Imports
-import { useEffect, useState } from "react";
-import { useCookies } from 'react-cookie';
+import { useContext, useEffect, useState } from "react";
 import useFormModal from '../CustomHooks/useFormModal';
+import AuthContext from '../Utils/AuthContext';
 
 // Data
 import FullMenu from "../Data/menu.json";
@@ -26,7 +26,7 @@ const Menu = () => {
     const [showLinkPlates, setShowLinkPlates] = useState(false);
     const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
     const [modalConfiguration, setModalConfiguration] = useState(undefined);
-    const [cookies] = useCookies(['role']);
+    const {authContextApi} = useContext(AuthContext);
 
     // Inputs for modal configs
     const inputConfigAddPlate = [
@@ -198,7 +198,7 @@ const Menu = () => {
     }
 
     const onUpdateHandler = (plateID) => {
-        if (cookies.role === 'ADMIN')
+        if (authContextApi.role === 'ADMIN')
             setSelectedPlate(FullMenu.find(plt => plt.id === plateID));
     }
 
@@ -215,7 +215,7 @@ const Menu = () => {
             <h1 className="menu__title">EatOnTime Menu {linkMode && '(Añadiendo a menú)'} </h1>
             <div className="plates">
                 {
-                    cookies.role === 'ADMIN' &&
+                    authContextApi.role === 'ADMIN' &&
                     <div className="menu__new">
                         <button className="menu__new-add" onClick={onNewPlateHandler}>Crear Platillo</button>
                         <button className="menu__new-add" onClick={onNewMenuHandler}>Crear Menú</button>

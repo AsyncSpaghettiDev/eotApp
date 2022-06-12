@@ -1,20 +1,12 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
+const api = express.Router();
 
-const apiController = require('../controllers/apiController.js');
+import apiController from '../controllers/apiController.js';
 
-router.get('/GetTables', apiController.getTables);
+api.post('/login', apiController.login);
 
-router.get('/GetEmployees', apiController.getEmployees);
+api.get('/recover', apiController.recoverSession);
 
-router.get('/GetTableOrder', apiController.getTableOrder);
+api.get('/logout', apiController.logout);
 
-router.get('/GetCheck/:tableID', apiController.getCheck);
-
-router.post('/InsertIntoOrder/:tableID', apiController.insertIntoOrder);
-
-/* router.get('/home', (_, res) => {
-    res.json({message: 'hello world!'});
-}); */
-
-module.exports = router;
+export default api;
