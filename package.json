@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "private": true,
   "dependencies": {
+    "eotbackend": "file:server",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
@@ -14,7 +15,8 @@
     "server": "nodemon server/app.js",
     "build": "react-scripts build && node copy.js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "install": "cd ./server/ && npm install"
   },
   "eslintConfig": {
     "extends": [
