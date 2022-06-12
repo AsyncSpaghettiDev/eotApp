@@ -6,10 +6,10 @@ const MySQLStore = require('express-mysql-session')(session);
 const database = {};
 
 const options = {
-    host: 'mysql-eatontime.alwaysdata.net',
-    user: 'eatontime',
-    password: 'Ma-^VdUyZeN$JyW',
-    database: 'eatontime_tijuana'
+    host: 'sql305.epizy.com',
+    user: 'epiz_31941033',
+    password: 'GWJzEj8LTIMFMw',
+    database: 'epiz_31941033_eatontime'
 }
 
 database.db = mysql.createConnection(options);
