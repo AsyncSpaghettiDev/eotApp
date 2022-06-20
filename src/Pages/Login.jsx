@@ -16,7 +16,7 @@ import AuthContext from '../Utils/AuthContext.js';
 const Login = () => {
     // Hooks
     let navigate = useNavigate();
-    const [validForm, setValidForm] = useState(true);
+    const [validForm, setValidForm] = useState(undefined);
     const [from, setFrom] = useState();
     const [userAuth, setUserAuth] = useState({
         auth: false,
@@ -25,7 +25,7 @@ const Login = () => {
     });
     const [searchParams, __] = useSearchParams();
     let location = useLocation();
-    const { authContextApi, setAuthContextApi } = useContext(AuthContext);
+    const { _, setAuthContextApi } = useContext(AuthContext);
 
     // UseEffect
     useEffect(() => {
@@ -43,7 +43,8 @@ const Login = () => {
     }, [validForm]);
 
     useEffect(() => {
-        setValidForm(userAuth.auth);
+        if(validForm !== undefined)
+            setValidForm(userAuth.auth);
 
         if (userAuth.auth) {
             setAuthContextApi({
@@ -92,7 +93,7 @@ const Login = () => {
             <NavBar />
             <form
                 onSubmit={submitHandler}
-                className={validForm ? 'login__form' : 'login__form invalid'}
+                className={validForm !== undefined && !validForm ? 'login__form invalid' : 'login__form'}
                 autoComplete='off'>
                 <img className='login__form-img' src={EOTLogo} alt="" />
                 <label className="login__form-label" htmlFor="usr-name">Nombre de usuario</label>
@@ -100,12 +101,12 @@ const Login = () => {
                 <label className="login__form-label" htmlFor="usr-pswd">Contraseña</label>
                 <input className="login__form-input" placeholder='Ingrese su contraseña' type="password" name="usr-pswd" id="usr-pswd" />
                 {
-                    !validForm &&
+                    validForm !== undefined && !validForm &&
                     <p className="login__form-warn">Credenciales inválidas, prueba otra vez.</p>
                 }
                 <input className="login__form-submit" type="submit" value="Ingresar" />
             </form>
-            <Transition duration='1s' />
+            <Transition duration='200ms' />
         </main>
     )
 }
