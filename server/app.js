@@ -3,6 +3,7 @@ import path, { join }  from 'path';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
 import database from './database.cjs';
+import 'dotenv/config'
 const app = express();
 
 // Routes
