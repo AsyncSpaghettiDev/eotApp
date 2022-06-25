@@ -6,7 +6,7 @@ import database from './database.cjs';
 const app = express();
 
 // Routes
-import api from './routes/api.js';
+import api from './api.js';
 
 // Settings
 app.set('port', process.env.PORT || 5000);
@@ -27,7 +27,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie:{
-        maxAge: 60 * 60 * 12
+        maxAge: (1000 * 60 * 60 * 12)
     }
 }));
 

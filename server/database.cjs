@@ -6,8 +6,8 @@ const MySQLStore = require('express-mysql-session')(session);
 const database = {};
 
 const options = {
-    host: 'mysql-eatontime.alwaysdata.net',
-    user: 'eatontime',
+    host: 'localhost',
+    user: 'jonathan',
     password: 'Ma-^VdUyZeN$JyW',
     database: 'eatontime_tijuana'
 }

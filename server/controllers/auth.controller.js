@@ -1,7 +1,6 @@
-const apiController = {};
 import database from '../database.cjs';
 
-apiController.login = async (req, res) => {
+export const login = async (req, res) => {
     let auth = false;
     let message = 'User and password must not be empty';
     let statusCode = 400;
@@ -30,7 +29,7 @@ apiController.login = async (req, res) => {
     })
 }
 
-apiController.recoverSession = (req, res) => {
+export const recoverSession = (req, res) => {
     if (req.session.auth)
         res.json({
             auth: req.session.auth,
@@ -45,7 +44,7 @@ apiController.recoverSession = (req, res) => {
         });
 }
 
-apiController.logout = (req, res) => {
+export const logout = (req, res) => {
     req.session.destroy();
     res.json({
         auth: false,
@@ -53,33 +52,3 @@ apiController.logout = (req, res) => {
         role: null
     });
 }
-
-apiController.getTables = async (_, res) => {
-
-    res.json(null);
-}
-
-apiController.getEmployees = async (_, res) => {
-
-    res.json(null);
-}
-
-apiController.getTableOrder = async (req, res) => {
-    const { tableId } = req.query;
-
-    res.json(null);
-}
-
-apiController.getCheck = async (req, res) => {
-    const { tableID } = req.params;
-
-    res.json(null);
-}
-
-apiController.insertIntoOrder = async (req, res) => {
-    console.log(req.query);
-
-    res.json(null);
-}
-
-export default apiController;
