@@ -23,7 +23,9 @@ const Home = () => {
 
     // Handlers
     const onClickHandler = () => {
-        fetch('/api/logout').then(res => res.json()).then(__ => setAuthContextApi({
+        fetch('/api/auth/logout',{
+            method: 'DELETE'
+        }).then(res => res.json()).then(__ => setAuthContextApi({
             auth: false,
             username: null,
             role: null

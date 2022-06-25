@@ -29,7 +29,7 @@ const App = () => {
 
     // On reload
     useEffect(() => {
-        fetch('/api/recover').then(res => res.json()).then(data => {
+        fetch('/api/auth/recover').then(res => res.json()).then(data => {
             setAuthContextApi({
                 auth: data.auth,
                 username: data.user,

@@ -19,9 +19,8 @@ import LinkPlateModal from '../Components/LinkPlateModal.jsx';
 
 const Menu = () => {
     // Hooks
-    const [pizzas, setPizzas] = useState([]);
-    const [desserts, setDesserts] = useState([]);
     const [linkMode, setLinkMode] = useState(false);
+    const [menuPlates, setMenuPlates] = useState(undefined);
     const [selectedPlate, setSelectedPlate] = useState(null);
     const [showLinkPlates, setShowLinkPlates] = useState(false);
     const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
@@ -104,8 +103,7 @@ const Menu = () => {
 
     // UseEffect
     useEffect(() => {
-        setPizzas(PizzasMenu);
-        setDesserts(DessertsMenu);
+        fetch('/api/menu/getMenus').then(res => res.json()).then(data => console.log(data));
     }, []);
 
     useEffect(() => {
@@ -223,7 +221,10 @@ const Menu = () => {
                     </div>
                 }
                 <p className="plates-title">Pizzas</p>
-                {pizzas.map(
+                {
+                    
+                }
+                {/* {pizzas.map(
                     pizza =>
                         <MenuPlate
                             key={pizza.id}
@@ -245,7 +246,7 @@ const Menu = () => {
                             description={dessert.description}
                             onClick={onUpdateHandler}
                         />)
-                }
+                } */}
             </div>
 
             {modalConfiguration && showFormModal(modalConfiguration)}

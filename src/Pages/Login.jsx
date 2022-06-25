@@ -64,7 +64,7 @@ const Login = () => {
     }
     // Functions
     const serverValidation = async (user, password) => {
-        fetch('/api/login',
+        fetch('/api/auth/login',
             {
                 method: 'POST',
                 body: JSON.stringify({ user: user, password: password }),
