@@ -13,7 +13,9 @@ const NavBar = ({ noBack = false, showUser = true }) => {
 
     // Handlers
     const onClickHandler = () => {
-        fetch('/api/logout').then(res => res.json()).then(__ => {
+        fetch('/api/auth/',{
+            method: 'DELETE'
+        }).then(res => res.json()).then(__ => {
             setAuthContextApi({
                 auth: false,
                 username: null,

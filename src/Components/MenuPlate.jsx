@@ -4,7 +4,7 @@ import './styles/MenuPlate.css';
 // Menu plate view for menu page
 const MenuPlate = ({ id, img, name, description, onClick }) => {
     // Handlers
-    const onClickHandler = () => {
+    const onClickHandler = async () => {
         onClick(id);
     }
 

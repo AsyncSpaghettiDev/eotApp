@@ -3,11 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import useFormModal from '../CustomHooks/useFormModal';
 import AuthContext from '../Utils/AuthContext';
 
-// Data
-import FullMenu from "../Data/menu.json";
-import PizzasMenu from '../Data/pizzas.json';
-import DessertsMenu from '../Data/desserts.json';
-
 // Styles
 import "./styles/Menu.css";
 
@@ -19,16 +14,27 @@ import LinkPlateModal from '../Components/LinkPlateModal.jsx';
 
 const Menu = () => {
     // Hooks
+    const [rows, setRows] = useState([]);
     const [linkMode, setLinkMode] = useState(false);
-    const [menuPlates, setMenuPlates] = useState(undefined);
+    const [menuPlates, setMenuPlates] = useState([]);
+    const [categories, setCategories] = useState([]);
+    /*
+        Actually unhandled 
+        const [inactiveMenus, setInactiveMenus] = useState([]); 
+    */
     const [selectedPlate, setSelectedPlate] = useState(null);
     const [showLinkPlates, setShowLinkPlates] = useState(false);
     const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
     const [modalConfiguration, setModalConfiguration] = useState(undefined);
-    const {authContextApi} = useContext(AuthContext);
+    const { authContextApi } = useContext(AuthContext);
 
     // Inputs for modal configs
     const inputConfigAddPlate = [
+        {
+            "id": "plate__name",
+            "label": "Nombre del platillo",
+            "input__type": "text"
+        },
         {
             "id": "plate-description",
             "label": "Descripción del platillo",
@@ -49,20 +55,41 @@ const Menu = () => {
         },
         {
             "id": "plate-type",
-            "label": "Tipo de platillo",
+            "label": "Categoria de platillo",
             "input": true,
             "input__type": "select",
             "style": {
                 "width": "12ch"
             },
-            "radios__name": "table-status-actual",
             "options": [
+                {
+                    "value": "Selecciona un tipo",
+                    "hidden": true
+                },
                 {
                     "value": "Pizzas",
                     "checked": true
                 },
                 {
                     "value": "Postres"
+                }
+            ]
+        },
+        {
+            "id": "plate-isVeg",
+            "label": "¿Es un platillo vegano?",
+            "input": true,
+            "input__type": "radio",
+            "radios__name": "plate-veg-opt",
+            "radios__buttons": [
+                {
+                    "id": "plate-isVeg-true",
+                    "label": "Si",
+                    "checked": true
+                },
+                {
+                    "id": "plate-isVeg-false",
+                    "label": "No"
                 }
             ]
         }
@@ -103,8 +130,32 @@ const Menu = () => {
 
     // UseEffect
     useEffect(() => {
-        fetch('/api/menu/getMenus').then(res => res.json()).then(data => console.log(data));
+        fetchMenuPlates();
+        fetchCategories();
     }, []);
+
+    useEffect(() => {
+        if (menuPlates.length <= 0)
+            return;
+        let lastCategory = undefined;
+        let newRows = [];
+        menuPlates.forEach(plt => {
+            if (lastCategory === undefined || lastCategory !== plt.plate__category) {
+                lastCategory = plt.plate__category;
+                newRows.push(<p key={plt.plate__category} className="plates-title">{plt.plate__category}</p>)
+            }
+
+            newRows.push(<MenuPlate
+                key={plt.plate__id}
+                id={plt.plate__id}
+                img={plt.plate__image}
+                name={plt.plate__name}
+                description={plt.plate__description}
+                onClick={onUpdateHandler}
+            />)
+        })
+        setRows(newRows);
+    }, [menuPlates]);
 
     useEffect(() => {
         if (formResponse) {
@@ -116,10 +167,20 @@ const Menu = () => {
     // Validates if current mode is editing or linking
     useEffect(() => {
         if (selectedPlate !== null && !linkMode) {
-
             const inputConfigUpdate = [
                 {
-                    "id": "plate-description",
+                    "id": "plate__id",
+                    "input__type": "hidden",
+                    "defaultValue": selectedPlate.plate__id
+                },
+                {
+                    "id": "plate__name",
+                    "label": "Nombre del platillo",
+                    "input__type": "text",
+                    "defaultValue": selectedPlate.plate__name
+                },
+                {
+                    "id": "plate__description",
                     "label": "Descripción del platillo",
                     "input__type": "textarea",
                     "style": {
@@ -127,19 +188,28 @@ const Menu = () => {
                         "resize": "none",
                         "width": "clamp(100px, 60%, 250px)"
                     },
-                    "defaultValue": selectedPlate.description
+                    "defaultValue": selectedPlate.plate__description
                 },
                 {
-                    "id": "plate-price",
+                    "id": "plate__price",
                     "label": "Precio del platillo (en MXN)",
                     "input__type": "number",
                     "style": {
                         "width": "12ch"
                     },
-                    "defaultValue": selectedPlate.price
+                    "defaultValue": selectedPlate.plate__price
                 },
                 {
-                    "id": "plate-type",
+                    "id": "plate__image",
+                    "label": "Imagen del platillo",
+                    "input__type": "text",
+                    "style": {
+                        "width": "80%"
+                    },
+                    "defaultValue": selectedPlate.plate__image
+                },
+                {
+                    "id": "plate__category",
                     "label": "Tipo de platillo",
                     "input": true,
                     "input__type": "select",
@@ -147,18 +217,16 @@ const Menu = () => {
                         "width": "12ch"
                     },
                     "radios__name": "table-status-actual",
+                    "defaultValue": selectedPlate.plate__category__id,
                     "options": [
                         {
                             "value": "Selecciona un tipo",
                             "hidden": true
                         },
-                        {
-                            "value": "Pizzas",
-                            "checked": true
-                        },
-                        {
-                            "value": "Postres"
-                        }
+                        ...categories.map(ctg => ({
+                            "name": ctg.category__name,
+                            "value": ctg.category__id,
+                        }))
                     ]
                 }
             ];
@@ -168,13 +236,28 @@ const Menu = () => {
                 description: null,
                 inputs: inputConfigUpdate,
                 confirmButtonText: 'Actualizar',
-                onSubmitAction: () => console.log('plate updated')
+                onSubmitAction: async ({ plate__name, plate__id, plate__description, plate__price, plate__type, plate__category }) => {
+                    const res = await fetch(`/api/menu/${plate__id}`, {
+                        method: 'PUT',
+                        body: JSON.stringify({
+                            plate__name,
+                            plate__description,
+                            plate__price,
+                            plate__type,
+                            plate__category__id: plate__category
+                        }),
+                        headers: { "Content-Type": "application/json" }
+                    });
+                    const data = await res.json();
+                    console.log(data);
+                    fetchMenuPlates();
+                }
             }
             setModalConfiguration(configurationUpdate);
             setShowForm(true);
             setSelectedPlate(null);
         }
-        if(selectedPlate !== null && linkMode){
+        if (selectedPlate !== null && linkMode) {
             setShowLinkPlates(true);
         }
     }, [selectedPlate, linkMode, setShowForm]);
@@ -196,14 +279,27 @@ const Menu = () => {
     }
 
     const onUpdateHandler = (plateID) => {
-        if (authContextApi.role === 'ADMIN')
-            setSelectedPlate(FullMenu.find(plt => plt.id === plateID));
+        if (authContextApi.role === 'ADMIN') {
+            const plateFinded = menuPlates.find(plt => plt.plate__id === plateID);
+            setSelectedPlate(plateFinded);
+        }
     }
 
     // Functions
     const toggleLinkModal = () => {
         setShowLinkPlates(false);
         setSelectedPlate(null);
+    }
+
+    const fetchMenuPlates = () => {
+        fetch('/api/menu/').then(res => res.json()).then(data => {
+            setMenuPlates(data.active);
+            /* setInactiveMenus(data.inactive); */
+        });
+    }
+
+    const fetchCategories = () => {
+        fetch('/api/menu/getCategories').then(res => res.json()).then(data => setCategories(data));
     }
 
     // Render Section
@@ -220,33 +316,9 @@ const Menu = () => {
                         <button className="menu__new-add" onClick={onAddToMenuHandler}>Alternar Agregar Platillo al Menú</button>
                     </div>
                 }
-                <p className="plates-title">Pizzas</p>
                 {
-                    
+                    rows
                 }
-                {/* {pizzas.map(
-                    pizza =>
-                        <MenuPlate
-                            key={pizza.id}
-                            id={pizza.id}
-                            img={pizza.img}
-                            name={pizza.name}
-                            description={pizza.description}
-                            onClick={onUpdateHandler}
-                        />)
-                }
-                <p className="plates-title">Postres</p>
-                {desserts.map(
-                    dessert =>
-                        <MenuPlate
-                            key={dessert.id}
-                            id={dessert.id}
-                            img={dessert.img}
-                            name={dessert.name}
-                            description={dessert.description}
-                            onClick={onUpdateHandler}
-                        />)
-                } */}
             </div>
 
             {modalConfiguration && showFormModal(modalConfiguration)}

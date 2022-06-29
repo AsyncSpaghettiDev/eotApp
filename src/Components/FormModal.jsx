@@ -41,9 +41,8 @@ const FormModal = ({
         if (validForm.formValid !== undefined && validForm.formValid) {
             // Here goes onValid trigger
             if (onSubmitAction)
-                onSubmitAction();
+                onSubmitAction(formData);
             onSelect(true);
-            console.log('onSelect prop triggered');
         }
     }, [validForm]);
 
@@ -60,17 +59,18 @@ const FormModal = ({
     const validateForm = () => {
         const errors = []
         for (const iterator in formData) {
-            if (formData[iterator] === undefined || formData[iterator] === '')
+            if (formData[iterator] === undefined || formData[iterator] === '') {
                 errors.push(iterator);
+            }
         }
         setValidForm({ formValid: errors.length === 0, formErrors: errors });
     }
-    
+
     const onResponseHandler = e => {
         onSelect(e.target.value === 'true');
         onDismiss();
     }
-    
+
     const onDismissHandler = _ => {
         onDismiss();
     }
@@ -137,7 +137,12 @@ const FormModal = ({
                                             :
                                             // In case not lets see if its a select
                                             inpt.input__type === 'select' ?
-                                                <select key={inpt.id} name={inpt.id} className='dialog__form-input' style={{paddingInline: '1em'}} >
+                                                <select key={inpt.id}
+                                                    name={inpt.id}
+                                                    className='dialog__form-input'
+                                                    style={{ paddingInline: '1em' }}
+                                                    onChange={onChangeInputHandler}
+                                                    defaultValue={inpt.defaultValue}>
                                                     {
                                                         inpt.options.map((opt, j) =>
                                                             <option
@@ -147,9 +152,8 @@ const FormModal = ({
                                                                 style={opt.style}
                                                                 key={`SelectT${opt.value + j}`}
                                                                 className='dialog__form-input'
-                                                                onChange={onChangeInputHandler}
                                                             >
-                                                                {opt.value}
+                                                                {opt.name}
                                                             </option>
                                                         )
                                                     }
@@ -157,27 +161,27 @@ const FormModal = ({
                                                 // In case not lets return null
                                                 : <p>Error in input__type, please check your sintax</p>
                                         :
-                                        inpt.input__type === 'textarea' ? 
-                                        <textarea
-                                            defaultValue={inpt.defaultValue}
-                                            id={inpt.id}
-                                            key={inpt.id}
-                                            name={inpt.id}
-                                            style={inpt.style}
-                                            className='dialog__form-input'
-                                            onChange={onChangeInputHandler} />
-                                        :
-                                        <input
-                                            defaultValue={inpt.defaultValue}
-                                            id={inpt.id}
-                                            key={inpt.id}
-                                            name={inpt.id}
-                                            style={inpt.style}
-                                            type={inpt.input__type}
-                                            min={inpt.input__type === 'number' ? 0 : null}
-                                            pattern={inpt.input__type === 'number' ? '[0-9]*' : null}
-                                            className='dialog__form-input'
-                                            onChange={onChangeInputHandler} />
+                                        inpt.input__type === 'textarea' ?
+                                            <textarea
+                                                defaultValue={inpt.defaultValue}
+                                                id={inpt.id}
+                                                key={inpt.id}
+                                                name={inpt.id}
+                                                style={inpt.style}
+                                                className='dialog__form-input'
+                                                onChange={onChangeInputHandler} />
+                                            :
+                                            <input
+                                                defaultValue={inpt.defaultValue}
+                                                id={inpt.id}
+                                                key={inpt.id}
+                                                name={inpt.id}
+                                                style={inpt.style}
+                                                type={inpt.input__type}
+                                                min={inpt.input__type === 'number' ? 0 : null}
+                                                pattern={inpt.input__type === 'number' ? '[0-9]*' : null}
+                                                className='dialog__form-input'
+                                                onChange={onChangeInputHandler} />
 
 
                                 }

@@ -23,7 +23,7 @@ const Home = () => {
 
     // Handlers
     const onClickHandler = () => {
-        fetch('/api/auth/logout',{
+        fetch('/api/auth/',{
             method: 'DELETE'
         }).then(res => res.json()).then(__ => setAuthContextApi({
             auth: false,
