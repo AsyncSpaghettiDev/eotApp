@@ -1,4 +1,4 @@
-import database from '../database.cjs';
+import database from '../database/database.cjs';
 
 export const login = async (req, res) => {
     let auth = false;

@@ -3,10 +3,10 @@ const api = express.Router();
 
 import { login, recoverSession, logout } from '../controllers/auth.controller.js';
 
-api.post('/login', login);
+api.post('/', login);
 
-api.get('/recover', recoverSession);
+api.get('/', recoverSession);
 
-api.delete('/logout', logout);
+api.delete('/', logout);
 
 export default api;

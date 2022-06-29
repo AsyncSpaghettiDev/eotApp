@@ -1,19 +1,50 @@
-import database from '../database.cjs';
+import database from '../database/database.cjs';
 
-export const getMenus = async (req, res) => {
+export const getMenuPlates = async (req, res) => {
     const isAdmin = req.session.role !== undefined && req.session.role === 'ADMIN';
-    const enabledQuery = isAdmin ?
-    'SELECT plates.* FROM plates JOIN menus ON plates.plate__menu__id = menus.menu__id WHERE menus.menu__active = 1;' :
-    'SELECT * FROM plates JOIN menus ON plates.plate__menu__id = menus.menu__id WHERE menus.menu__active = 1;';
+    const selectedColumns = isAdmin ? 'plates.*' : '*'
+    const enabledQuery = 
+        `SELECT ${selectedColumns}, categories.category__name as plate__category FROM plates 
+        JOIN menus ON plates.plate__menu__id = menus.menu__id
+        JOIN categories ON plates.plate__category__id = categories.category__id
+        WHERE menus.menu__active = 1;`
     const disabledQuery = 'SELECT * FROM plates JOIN menus ON plates.plate__menu__id = menus.menu__id WHERE menus.menu__active = 0;';
     const enabledMenus = await database.db.promise().query(enabledQuery);
     let disabledMenus = null;
 
     if (isAdmin)
         disabledMenus = await database.db.promise().query(disabledQuery);
-    
+
     res.json({
         active: enabledMenus[0],
         inactive: isAdmin ? disabledMenus[0] : null
     });
+}
+
+export const updateMenuPlate = async (req, res) => {
+    const { menuPlateId } = req.params;
+    console.log(menuPlateId);
+    console.log(req.body);
+    const query = `UPDATE plates SET ? WHERE plate__id = ${menuPlateId}`;
+    const response = await database.db.promise().query(query, req.body);
+    res.status(201).json({ message: response[0].info })
+}
+
+export const updateLinkedMenu = async (req, res) => {
+    const { menuPlateId } = req.params;
+    const query = `UPDATE plates SET ? WHERE plate__id = ${menuPlateId}`;
+    const response = await database.db.promise().query(query, req.body);
+    res.status(201).json({ message: response[0].info })
+}
+
+export const getMenus = async (_, res) => {
+    const query = 'SELECT menu__id, menu__name FROM menus';
+    const response = await database.db.promise().query(query);
+    res.json(response[0]);
+}
+
+export const getCategories = async (_, res) => {
+    const query = 'SELECT * FROM categories';
+    const response = await database.db.promise().query(query);
+    res.json(response[0]);
 }

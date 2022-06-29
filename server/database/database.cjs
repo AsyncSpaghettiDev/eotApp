@@ -15,9 +15,6 @@ const options = {
 
 database.db = mysql.createConnection(options);
 
-database.pool = mysql.createPool(options);
-database.pool2 = mysql2.createPool(options);
-
-database.sessionStore = new MySQLStore({}, database.pool2);
+database.sessionStore = new MySQLStore({}, mysql2.createPool(options));
 
 module.exports = database

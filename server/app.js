@@ -1,8 +1,8 @@
-import express, { urlencoded, json } from 'express';
+import express, { json } from 'express';
 import path, { join }  from 'path';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
-import database from './database.cjs';
+import database from './database/database.cjs';
 import 'dotenv/config'
 const app = express();
 
@@ -18,7 +18,6 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(join(__dirname, 'build')));
 
 // Middlewares
-app.use(urlencoded({ extended: false }));
 // Parse JSON bodies (as sent by API clients)
 app.use(json());
 app.use(session({
