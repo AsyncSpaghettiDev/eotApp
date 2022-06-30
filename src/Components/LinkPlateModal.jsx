@@ -52,7 +52,7 @@ const LinkPlateModal = ({ onDismiss, data }) => {
                     <p
                         className='dialog-desc'
                         id="dialogDesc">
-                        Seleccione un menú al que desea vincular el platillo <br /> {`${data.plate__name} (${data.plate__description}) `}
+                        Seleccione un menú al que desea vincular el platillo <br /> {data.plate__name}
                     </p>
                     <select name="dialog-menu-options" id="dialog-menu-options" className="dialog-select">
                         {

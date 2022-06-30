@@ -1,7 +1,16 @@
 import express from 'express';
 const api = express.Router();
 
-import { getCategories, getMenuPlates, getMenus, updateLinkedMenu, updateMenuPlate } from '../controllers/menu.controller.js';
+import {
+    createCategory,
+    createMenu,
+    createPlate,
+    getCategories,
+    getMenuPlates,
+    getMenus,
+    updateLinkedMenu,
+    updateMenuPlate
+} from '../controllers/menu.controller.js';
 
 api.get('/', getMenuPlates);
 
@@ -13,6 +22,10 @@ api.put('/updateLinkedMenu/:menuPlateId', updateLinkedMenu);
 
 api.put('/:menuPlateId', updateMenuPlate);
 
-api.post('/');
+api.post('/', createPlate);
+
+api.post('/menu', createMenu);
+
+api.post('/category', createCategory);
 
 export default api;

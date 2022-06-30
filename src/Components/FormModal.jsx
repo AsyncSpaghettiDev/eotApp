@@ -79,7 +79,7 @@ const FormModal = ({
         const target = e.target;
         const value =
             target.type === 'checkbox' ? target.checked :
-                target.type === 'radio' ? target.id : target.value;
+                target.type === 'radio' ? target.value : target.value;
         const name = target.name;
 
         setFormData({ ...formData, [name]: value });
@@ -125,6 +125,7 @@ const FormModal = ({
                                                                 type='radio'
                                                                 name={inpt.id}
                                                                 id={radio_btn.id}
+                                                                value={radio_btn.value}
                                                                 style={radio_btn.style}
                                                                 key={radio_btn.id}
                                                                 className='dialog__form-input'
@@ -192,7 +193,7 @@ const FormModal = ({
                     {
                         validForm.formValid !== undefined && !validForm.formValid &&
                         <p className="dialog__form__exception">
-                            {errorMessage || 'Hubo un error, verifica los campos'}<br />{validForm.formErrors.join(',')}
+                            {errorMessage || 'Hubo un error, verifica los campos'}<br />{validForm.formErrors.join(', ')}
                         </p>
                     }
 
