@@ -8,8 +8,11 @@ export const login = async (req, res) => {
 
     const { password, user } = req.body;
 
+    const isTable = user.slice(0, 5).toUpperCase() === "TABLE";
+    const tableName = isTable ? "tables" : "users";
+
     if (user && password) {
-        const queryString = `SELECT * FROM users WHERE R_USER_NAME='${user}' AND USER_PASSWORD='${password}'`;
+        const queryString = `SELECT * FROM ${tableName} WHERE R_USER_NAME='${user}' AND USER_PASSWORD='${password}'`;
         const results = await database.db.promise().query(queryString);
         auth = results[0].length != 0;
         role = auth ? results[0][0].USER_ROLE : null;
