@@ -5,6 +5,8 @@ import { createActivity, getTables, updateTable } from '../controllers/dashboard
 
 api.get('/tables', getTables);
 
+api.post('/table')
+
 api.post('/tables/:tableId', createActivity);
 
 api.put('/tables/:tableId', updateTable);

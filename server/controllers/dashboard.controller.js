@@ -13,6 +13,12 @@ export const updateTable = async (req, res) => {
     res.status(201).json({ message: response[0].info })
 }
 
+export const createTable = async (req, res) => {
+    const body = req.body;
+    console.log(body);
+    res.json(body);
+}
+
 export const createActivity = async (req, res) => {
     const { tableId } = req.params;
     console.log(tableId);

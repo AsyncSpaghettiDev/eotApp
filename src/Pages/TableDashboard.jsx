@@ -178,7 +178,7 @@ const TableDashboard = () => {
                         tables.map(table =>
                             <TableResume
                                 key={table.table__id}
-                                tableNo={table.table__id}
+                                tableNo={table.table__code.toString().slice(5)}
                                 freeSeat={table.table__capacity}
                                 busy={!table.table__isFree}
                                 editingMode={editMode}
