@@ -179,6 +179,7 @@ const FormModal = ({
                                                 name={inpt.id}
                                                 style={inpt.style}
                                                 type={inpt.input__type}
+                                                readOnly={inpt.readOnly || false}
                                                 min={inpt.input__type === 'number' ? 0 : null}
                                                 pattern={inpt.input__type === 'number' ? '[0-9]*' : null}
                                                 className='dialog__form-input'

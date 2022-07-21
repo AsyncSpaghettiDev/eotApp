@@ -6,14 +6,14 @@ import AuthContext from '../Utils/AuthContext';
 const RequireAuth = ({ children, requiredRole }) => {
     // Hooks
     let location = useLocation();
-    const {authContextApi} = useContext(AuthContext);
+    const { authContextApi } = useContext(AuthContext);
 
     // Const values
     const cookieRole = authContextApi.role;
 
     const roleValid =
         requiredRole instanceof Array ?
-            requiredRole.some(rqRole => rqRole === cookieRole ) :
+            requiredRole.some(rqRole => rqRole === cookieRole) :
             cookieRole !== requiredRole;
 
     // Conditional render section

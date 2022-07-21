@@ -1,8 +1,12 @@
 import express from 'express';
 const api = express.Router();
 
-import { getTables } from '../controllers/dashboard.controller.js';
+import { createActivity, getTables, updateTable } from '../controllers/dashboard.controller.js';
 
-api.get('/getTables', getTables);
+api.get('/tables', getTables);
+
+api.post('/tables/:tableId', createActivity);
+
+api.put('/tables/:tableId', updateTable);
 
 export default api;

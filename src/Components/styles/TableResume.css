@@ -1,4 +1,4 @@
-.dashboard__resume__table{
+.dashboard__resume__table {
     --current-color: var(--clr-black);
     font-family: var(--ff-alter);
     text-align: center;
@@ -8,30 +8,67 @@
     color: var(--current-color);
 }
 
-.dashboard__resume__table::after{
+.dashboard__resume__table::after {
     --current-bg: var(--bg-primary-600);
     position: absolute;
     content: '';
     inset: 0;
-    z-index: -1;
+    z-index: -10;
     border-radius: 1em;
     border: 1.5px solid var(--current-bg);
+    transition: background-color 750ms ease-in-out;
 }
 
-.dashboard__resume__table--busy{
+.dashboard__resume__table--busy {
     cursor: pointer;
     --current-color: var(--clr-white);
 }
 
-.dashboard__resume__table--busy::after{
+.dashboard__resume__table--busy::after {
     background-color: var(--current-bg);
 }
 
-.dashboard__resume__table .dashboard__resume__table-info{
+.dashboard__resume__table .dashboard__resume__table-info {
     padding: 0.25em;
     box-sizing: border-box;
 }
 
-.dashboard__resume__table .dashboard__resume__table-time{
-    text-transform: lowercase;
+.dashboard__resume__table .dashboard__resume__table-update {
+    font-family: var(--ff-alter);
+    background-color: inherit;
+    border: none;
+    font-size: var(--fs-special);
+    color: var(--current-color);
+    cursor: pointer;
+    position: relative;
+    transition: color 250ms steps(15);
+}
+
+.dashboard__resume__table .dashboard__resume__table-update::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    transform: scaleX(0);
+    background-color: var(--bg-primary-600);
+    transform-origin: right;
+    transition: transform 500ms ease-out;
+    border-radius: 0.25em;
+}
+
+.dashboard__resume__table .dashboard__resume__table-update:hover {
+    color: var(--clr-white);
+}
+
+.dashboard__resume__table .dashboard__resume__table-update:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 500ms ease-out;
+}
+.dashboard__resume__table .dashboard__resume__table-update.inverted::after{
+    background-color: var(--bg-primary-200);
+}
+
+.dashboard__resume__table .dashboard__resume__table-update.inverted:hover{
+    color: var(--clr-primary-800);
 }

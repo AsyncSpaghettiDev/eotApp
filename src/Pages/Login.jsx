@@ -25,7 +25,7 @@ const Login = () => {
     });
     const [searchParams, __] = useSearchParams();
     let location = useLocation();
-    const { _, setAuthContextApi } = useContext(AuthContext);
+    const { authContextApi, setAuthContextApi } = useContext(AuthContext);
 
     // UseEffect
     useEffect(() => {
@@ -38,12 +38,17 @@ const Login = () => {
     }, []);
 
     useEffect(() => {
+        if (authContextApi.auth)
+            navigate(from, { replace: true });
+    }, [authContextApi])
+
+    useEffect(() => {
         if (!validForm)
             setTimeout(() => setValidForm(true), 2000);
     }, [validForm]);
 
     useEffect(() => {
-        if(validForm !== undefined)
+        if (validForm !== undefined)
             setValidForm(userAuth.auth);
 
         if (userAuth.auth) {
